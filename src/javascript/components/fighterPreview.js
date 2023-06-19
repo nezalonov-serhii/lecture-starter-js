@@ -9,6 +9,30 @@ export function createFighterPreview(fighter, position) {
 
     // todo: show fighter info (image, name, health, etc.)
 
+    if (fighter) {
+        const { attack, defense, health, name, source } = fighter;
+
+        const image = document.createElement('img');
+        const title = document.createElement('h3');
+
+        const stats = document.createElement('ul');
+        const attackItem = document.createElement('li');
+        stats.appendChild(attackItem);
+        const defenseItem = document.createElement('li');
+        stats.appendChild(defenseItem);
+        const healthItem = document.createElement('li');
+        stats.appendChild(healthItem);
+
+        image.src = source;
+        image.alt = name;
+        title.textContent = name;
+        attackItem.textContent = `Attack: ${attack}`;
+        defenseItem.textContent = `Defense: ${defense}`;
+        healthItem.textContent = `Health: ${health}`;
+
+        fighterElement.append(image, title, stats);
+    }
+
     return fighterElement;
 }
 

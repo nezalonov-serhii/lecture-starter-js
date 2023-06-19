@@ -2,10 +2,16 @@ import createElement from '../helpers/domHelper';
 import renderArena from './arena';
 import versusImg from '../../../resources/versus.png';
 import { createFighterPreview } from './fighterPreview';
+import fighterService from '../services/fightersService';
 
 const fighterDetailsMap = new Map();
 
 export async function getFighterInfo(fighterId) {
+    const currentFighter = await fighterService.getFighterDetails(fighterId);
+
+    fighterDetailsMap.set('player', currentFighter);
+
+    return fighterDetailsMap.get('player');
     // get fighter info from fighterDetailsMap or from service and write it to fighterDetailsMap
 }
 
@@ -38,6 +44,7 @@ function createVersusBlock(selectedFighters) {
 function renderSelectedFighters(selectedFighters) {
     const fightersPreview = document.querySelector('.preview-container___root');
     const [playerOne, playerTwo] = selectedFighters;
+
     const firstPreview = createFighterPreview(playerOne, 'left');
     const secondPreview = createFighterPreview(playerTwo, 'right');
     const versusBlock = createVersusBlock(selectedFighters);
